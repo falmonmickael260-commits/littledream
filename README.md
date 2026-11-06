@@ -18,9 +18,11 @@ Ouvrir http://localhost:3000.
 - Variantes visuelles en quatre couleurs et six tailles. Les stocks affichés sont des données locales de présentation, pas un inventaire réel.
 - Fiches produit, studio de composition (texte, motifs vectoriels, déplacement, réglages, annuler/refaire), export PNG transparent à 300 dpi.
 - Panier conservé dans le navigateur et pages d’information / espace client en attente de configuration.
-- Illustrations SVG originales provisoires ; aucune photographie produit réelle n’est fournie.
+- Photo réelle de démonstration sur l’accueil, les cartes et les fiches. Source : Mediamodifier, Unsplash. Elle porte une marque visible et ne représente pas un produit Little Dream ; elle doit être remplacée par une photo de votre body avant ouverture. La teinte affichée est simulée par-dessus la photo.
 
 Le mode local est destiné à présenter l’interface. Aucun paiement ni commande réelle n’est effectué. Les prix saisis sont ceux communiqués pour l’aperçu ; les détails commerciaux restent à confirmer.
+
+Photo : [Mediamodifier — baby onesie flatlay sur Unsplash](https://unsplash.com/photos/babys-white-and-blue-onesie-fdPlZXc-ZwU), disponible sous la [licence Unsplash](https://unsplash.com/license).
 
 ## Scripts
 
