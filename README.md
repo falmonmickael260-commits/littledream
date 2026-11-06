@@ -19,7 +19,6 @@ Ouvrir http://localhost:3000.
 - Fiches produit, studio de composition (texte, motifs vectoriels, déplacement, réglages, annuler/refaire), export PNG transparent à 300 dpi.
 - Panier conservé dans le navigateur et pages d’information / espace client en attente de configuration.
 - Illustrations SVG originales provisoires ; aucune photographie produit réelle n’est fournie.
-- Photo d’ambiance : « Baby clothes hanging on clothesline », Elina Volkova via Pexels. Vidéo d’ambiance : « Changing Baby’s Clothes », Sarah Chai via Pexels. Ces médias illustrent l’univers et ne montrent pas un produit Little Dream.
 
 Le mode local est destiné à présenter l’interface. Aucun paiement ni commande réelle n’est effectué. Les prix saisis sont ceux communiqués pour l’aperçu ; les détails commerciaux restent à confirmer.
 
@@ -38,7 +37,6 @@ Copier `.env.example` vers `.env.local` et renseigner les variables Supabase ava
 
 À connecter avant l’ouverture : projet Supabase et migrations/RLS, authentification, gestion des produits et stocks, stockage des médias, commandes et génération des fichiers de production, prestataire de paiement et webhooks, livraison, consentement, adresse de contact, mentions légales et CGV. Stripe et PayPal ne sont pas configurés.
 
-Médias de présentation : [photo Pexels 17713240](https://www.pexels.com/photo/baby-clothes-hanging-on-clothesline-17713240/) et [vidéo Pexels 7280836](https://www.pexels.com/video/changing-baby-s-clothes-7280836/), sous [licence Pexels](https://www.pexels.com/legal-pages/license/).
 
 ## État
 
