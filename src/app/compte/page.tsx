@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function Account(){return <div className="narrow"><div className="page-intro"><span className="eyebrow">Espace personnel</span><h1>Mon compte</h1></div><div className="empty"><h2>Connexion bientôt disponible</h2><p>L’espace client sera activé après configuration de l’authentification Supabase.</p><Link href="/compte/commandes" className="btn btn-outline">Voir les commandes</Link></div><div style={{height:100}}/></div>;}

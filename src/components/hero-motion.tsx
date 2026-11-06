@@ -1,0 +1,3 @@
+'use client';
+import { useEffect, useRef } from 'react';
+export function HeroMotion({ children }: { children: React.ReactNode }) { const ref = useRef<HTMLDivElement>(null); useEffect(() => { if (matchMedia('(prefers-reduced-motion: reduce)').matches) return; let ctx: { revert: () => void } | undefined; import('gsap').then(({ default: gsap }) => { if (!ref.current) return; ctx = gsap.context(() => { gsap.from('[data-hero]', { y: 28, opacity: 0, duration: 1.1, stagger: .14, ease: 'power3.out' }); gsap.from('.hero-visual .body-art', { y: 35, rotate: -15, opacity: 0, duration: 1.5, ease: 'power2.out' }); }, ref); }); return () => ctx?.revert(); }, []); return <div ref={ref}>{children}</div>; }

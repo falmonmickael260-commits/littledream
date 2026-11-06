@@ -1,0 +1,1 @@
+export function PlaceholderPage({eyebrow,title,children}:{eyebrow:string;title:string;children:React.ReactNode}){return <div className="narrow"><div className="page-intro"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1></div><div className="notice">{children}</div><div style={{height:100}}/></div>;}
