@@ -17,6 +17,7 @@ Ouvrir http://localhost:3000.
 - Deux bodies de présentation : body bébé doux à 16,90 € et body bébé personnalisé à 30 €.
 - Variantes visuelles en quatre couleurs et six tailles. Les stocks affichés sont des données locales de présentation, pas un inventaire réel.
 - Fiches produit, studio de composition (texte, motifs vectoriels, déplacement, réglages, annuler/refaire), export PNG transparent à 300 dpi.
+- Les 32 illustrations PNG transparentes du ZIP fourni sont disponibles dans le studio et intégrées à l’export PNG de production.
 - Panier conservé dans le navigateur et pages d’information / espace client en attente de configuration.
 - Photo réelle de démonstration sur l’accueil, les cartes et les fiches. Source : Mediamodifier, Unsplash. Elle porte une marque visible et ne représente pas un produit Little Dream ; elle doit être remplacée par une photo de votre body avant ouverture. La teinte affichée est simulée par-dessus la photo.
 
