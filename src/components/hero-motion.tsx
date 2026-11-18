@@ -11,7 +11,7 @@ export function HeroMotion({children}:{children:React.ReactNode}){
      const media=gsap.matchMedia();
      media.add('(prefers-reduced-motion: no-preference)',()=>{
        gsap.from('[data-hero]',{y:20,opacity:0,duration:.65,stagger:.08});
-       gsap.to('.hero-model',{yPercent:4,ease:'none',scrollTrigger:{trigger:ref.current,start:'top top',end:'bottom top',scrub:true}});
+       gsap.to('.campaign-photo > img',{yPercent:4,ease:'none',scrollTrigger:{trigger:ref.current,start:'top top',end:'bottom top',scrub:true}});
      },ref.current);
      cleanup=()=>media.revert();
    });

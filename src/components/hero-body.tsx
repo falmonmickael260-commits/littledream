@@ -1,13 +1,18 @@
 'use client';
-import {useEffect,useState} from 'react';
+import {useState} from 'react';
 import dynamic from 'next/dynamic';
+import {Box, ImageIcon} from 'lucide-react';
 import {ILLUSTRATIONS} from '@/lib/illustrations';
-import {PhotoBody} from './photo-body';
 import type {Design} from '@/lib/types';
+
 const Viewer=dynamic(()=>import('./body-viewer').then(m=>m.BodyViewer),{ssr:false});
-const design:Design={version:1,widthMm:100,heightMm:75,elements:[{kind:'motif',id:'lion',value:ILLUSTRATIONS[0].src,x:.07,y:.04,width:.86,height:.89,color:'#493a33',rotation:0}]};
+const design:Design={version:1,widthMm:100,heightMm:75,elements:[{kind:'motif',id:'fox',value:ILLUSTRATIONS[12].src,x:.1,y:.05,width:.8,height:.85,color:'#493a33',rotation:0}]};
 export function HeroBody(){
- const [view,setView]=useState(false);
- useEffect(()=>{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)setView(true);},[]);
- return <div className="hero-visual"><PhotoBody className="crop"/>{view&&<div className="hero-model"><Viewer design={design} color="#ece0cd"/></div>}<button className="hero-switch size" onClick={()=>setView(!view)}>{view?'Voir la photo de démonstration':'Découvrir le body en 3D'}</button></div>;
+  const [view,setView]=useState(false);
+  return <figure className="campaign-photo">
+    <img src="/images/little-dream-campagne.webp" alt="Aperçu d’un body ivoire au renard endormi, sur un drap bleu" fetchPriority="high"/>
+    {view&&<div className="campaign-model"><Viewer design={design} color="#f5ebd9"/></div>}
+    <figcaption>Aperçu de collection</figcaption>
+    <button className="model-switch" onClick={()=>setView(!view)}>{view?<ImageIcon size={16}/>:<Box size={17}/>} {view?'Revoir le visuel':'Explorer en 3D'}</button>
+  </figure>;
 }

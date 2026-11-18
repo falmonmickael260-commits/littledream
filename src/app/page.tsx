@@ -1,8 +1,25 @@
-import {HeroBody} from '@/components/hero-body';
 import Link from 'next/link';
-import { BodyArt } from '@/components/body-art';
+import {ArrowRight} from 'lucide-react';
 import { HeroMotion } from '@/components/hero-motion';
-import { ProductCard } from '@/components/product-card';
-import { PhotoBody } from '@/components/photo-body';
-import { getProducts } from '@/lib/catalog';
-export default async function Home() { const products = await getProducts(); return <><HeroMotion><section className="hero"><div className="hero-copy"><span data-hero className="eyebrow">Le vêtement devient souvenir</span><h1 data-hero>Little<br/>Dream</h1><p data-hero>Bodies bébé 100 % coton, illustrés et personnalisés au prénom de votre choix.</p><div data-hero className="hero-actions"><Link href="/personnaliser/body-bebe-personnalise" className="btn">Personnaliser mon body</Link><Link href="/packs" className="btn btn-outline">Créer mon pack</Link></div></div><HeroBody/></section></HeroMotion><div className="preview-banner">Aperçu de la boutique · Visuel photo de démonstration, modèle réel à confirmer</div><section className="section container"><div className="section-head"><div><span className="eyebrow">Une première collection</span><h2>À imaginer ensemble</h2></div><Link className="link" href="/collections">Voir les collections</Link></div><div className="tiles"><div className="tile"><BodyArt color="#FFFDF9"/><h3>Les bodies personnalisés</h3><Link className="link" href="/collections/bodies-personnalises">Explorer les modèles</Link></div><div className="tile"><h3>Un cadeau qui raconte une histoire</h3><Link className="link" href="/idees-cadeaux">Trouver une idée cadeau</Link></div></div></section><section className="section" style={{ background: 'var(--cream)' }}><div className="container"><div className="section-head"><div><span className="eyebrow">La collection Little Dream</span><h2>Les premiers bodies</h2></div><Link className="link" href="/collections">Tout voir</Link></div>{products.length ? <div className="product-grid">{products.map((p) => <ProductCard key={p.id} product={p}/>)}</div> : <div className="empty"><h3>La collection se prépare</h3><p>Les premiers modèles seront visibles ici dès leur publication.</p></div>}</div></section><section className="section container"><div className="section-head"><div><span className="eyebrow">Votre création</span><h2>Quelques gestes, un souvenir</h2></div></div><div className="process"><article><strong>01</strong><h3>Choisissez</h3><p>Un modèle, une taille et une couleur à découvrir.</p></article><article><strong>02</strong><h3>Imaginez</h3><p>Composez votre texte et placez les motifs dans le studio.</p></article><article><strong>03</strong><h3>Visualisez</h3><p>Explorez le rendu avant de définir les détails de la boutique.</p></article></div></section><section className="section" style={{ background: 'var(--beige)', textAlign: 'center' }}><div className="narrow"><span className="eyebrow">Little Dream</span><h2>Pour les premiers jours et ceux que l’on n’oublie pas.</h2><p className="lead" style={{ margin: '25px auto' }}>Une garde-robe à personnaliser, pensée pour accompagner les souvenirs de naissance.</p><Link href="/notre-histoire" className="btn">Découvrir notre univers</Link></div></section></>; }
+import { HeroBody } from '@/components/hero-body';
+import { PackSelection } from '@/components/pack-selection';
+import { ILLUSTRATIONS } from '@/lib/illustrations';
+
+export default function Home() {
+  return <>
+    <HeroMotion><section className="campaign store-width">
+      <div className="campaign-copy">
+        <p className="collection-label" data-hero>La collection naissance</p>
+        <h1 data-hero>Son premier<br/><em>petit body.</em></h1>
+        <p className="campaign-desc" data-hero>Un motif à choisir, un prénom à ajouter. Composez son body en coton et découvrez votre création en 3D.</p>
+        <div className="campaign-actions" data-hero><Link href="/personnaliser/body-bebe-personnalise" className="btn">Personnaliser mon body <ArrowRight size={17}/></Link><Link href="/packs">Créer mon pack ↗</Link></div>
+      </div><HeroBody/>
+    </section></HeroMotion>
+    <section className="store-width illustration-shelf"><header className="shelf-title"><h2>Les petits personnages</h2><Link href="/collections">Voir la boutique ↗</Link></header>
+      <div className="character-row">{[12,1,9,7].map(index=>{const m=ILLUSTRATIONS[index];return <Link key={m.id} className="character" href={'/personnaliser/body-bebe-doux?motif='+m.id}>
+        <div><img src={m.src} alt="" loading="lazy"/></div><h3>{m.name}</h3><p>Body à personnaliser · 17,99 €</p></Link>;})}</div>
+    </section>
+    <PackSelection/>
+    <section className="cotton-note store-width"><h2>Le coton, de près.</h2><div><p>Un body 100 % coton accueille votre motif et le prénom de bébé.</p><Link href="/fabrication">Découvrir notre fabrication ↗</Link></div></section>
+  </>;
+}
