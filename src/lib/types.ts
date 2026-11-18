@@ -18,5 +18,8 @@ export type DesignElement = {
 export type Design = { version: 1; widthMm: number; heightMm: number; elements: DesignElement[] };
 export type CartLine = {
   key: string; productId: string; variantId: string; quantity: number;
-  design?: Design;
+  design?: Design; pack?: BodyPack;
 };
+
+export type PackPiece = { size: string; color: string; motif: string; name: string };
+export type BodyPack = { offer: import('./offer-pricing').Offer; pieces: PackPiece[] };

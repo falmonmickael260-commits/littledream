@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Heart, Menu, Search, ShoppingBag, UserRound, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useCart } from './cart-provider';
-const links = [['Collections','/collections'],['Bodies personnalisés','/collections/bodies-personnalises'],['Idées cadeaux','/idees-cadeaux'],['Notre histoire','/notre-histoire']];
+const links = [['Boutique','/collections'],['Personnaliser','/personnaliser/body-bebe-personnalise'],['Créer un pack','/packs'],['Notre fabrication','/fabrication']];
 export function SiteHeader() {
   const [mobile, setMobile] = useState(false);
   const { count, open } = useCart();
