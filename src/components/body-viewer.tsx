@@ -25,7 +25,7 @@ export function BodyViewer({color,design}:{color:string;design:Design}){
    const pos:number[]=[],uv:number[]=[],indices:number[]=[];
    const segments=80;
    rings.forEach(([y,w,d],j)=>{for(let i=0;i<=segments;i++){
-    const a=i/segments*Math.PI*2;pos.push(w*Math.sin(a),y,d*Math.cos(a));uv.push(i/segments,j/(rings.length-1));
+    const a=i/segments*Math.PI*2;pos.push(w*Math.sin(a),y,d*Math.cos(a));uv.push(i/segments,(y+1.23)/2.35);
     if(j&&i){const k=j*(segments+1)+i;indices.push(k-segments-2,k-1,k,k-segments-2,k,k-segments-1);}
    }});
    const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(indices);geo.computeVertexNormals();
@@ -43,7 +43,7 @@ export function BodyViewer({color,design}:{color:string;design:Design}){
     const canvas=document.createElement('canvas');canvas.width=1024;canvas.height=1024;
     const ctx=canvas.getContext('2d')!;ctx.fillStyle=tint;ctx.fillRect(0,0,1024,1024);
     // The front crosses the UV seam. Draw one continuous panel on both ends.
-    for(const center of [0,1024])ctx.drawImage(ink,center-91,612,182,118);
+    for(const center of [0,1024])ctx.drawImage(ink,center-112,340,224,280);
     const texture=new T.CanvasTexture(canvas);texture.colorSpace=T.SRGBColorSpace;
     material.map?.dispose();material.map=texture;material.needsUpdate=true;draw();
    };

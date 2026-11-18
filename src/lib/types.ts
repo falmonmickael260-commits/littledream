@@ -21,5 +21,5 @@ export type CartLine = {
   design?: Design; pack?: BodyPack;
 };
 
-export type PackPiece = { size: string; color: string; motif: string; name: string };
+export type PackPiece = { size: string; color: string; motif: string; motifSrc?: string; motifName?: string; name: string };
 export type BodyPack = { offer: import('./offer-pricing').Offer; pieces: PackPiece[] };
