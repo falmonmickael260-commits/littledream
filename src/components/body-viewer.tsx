@@ -29,8 +29,27 @@ export function BodyViewer({color,design}:{color:string;design:Design}){
     if(j&&i){const k=j*(segments+1)+i;indices.push(k-segments-2,k-1,k,k-segments-2,k,k-segments-1);}
    }});
    const geo=new T.BufferGeometry();geo.setAttribute('position',new T.Float32BufferAttribute(pos,3));geo.setAttribute('uv',new T.Float32BufferAttribute(uv,2));geo.setIndex(indices);geo.computeVertexNormals();
-   const material=new T.MeshStandardMaterial({side:T.DoubleSide,roughness:.97});
-   const mesh=new T.Mesh(geo,material);scene.add(mesh,new T.HemisphereLight(0xffffff,0xad8c77,2));
+   // Fine vertical ribs give the cotton a directional relief under the studio light.
+   const weave=document.createElement('canvas');weave.width=64;weave.height=64;
+   const fibers=weave.getContext('2d')!;
+   fibers.fillStyle='#808080';fibers.fillRect(0,0,64,64);
+   for(let i=0;i<64;i+=4){fibers.fillStyle='#a7a7a7';fibers.fillRect(i,0,1,64);}
+   const cotton=new T.CanvasTexture(weave);
+   cotton.wrapS=cotton.wrapT=T.RepeatWrapping;cotton.repeat.set(12,7);
+   const material=new T.MeshStandardMaterial({side:T.DoubleSide,roughness:.97,bumpMap:cotton,bumpScale:.004});
+   const mesh=new T.Mesh(geo,material);
+   const trimMaterial=new T.MeshStandardMaterial({color:0xdbd1c0,roughness:.9});
+   const collarPoints=Array.from({length:64},(_,i)=>{
+     const a=i*Math.PI/32;return new T.Vector3(.33*Math.sin(a),1.04-.105*Math.cos(a),.117*Math.cos(a));
+   });
+   const collar=new T.TubeGeometry(new T.CatmullRomCurve3(collarPoints,true),64,.014,6,true);
+   mesh.add(new T.Mesh(collar,trimMaterial));
+   const snapShape=new T.TorusGeometry(.023,.007,8,18);
+   const snapMaterial=new T.MeshStandardMaterial({color:0xb5a48c,metalness:.55,roughness:.4});
+   for(const x of [-.105,0,.105]){
+     const snap=new T.Mesh(snapShape,snapMaterial);snap.position.set(x,-1.15,.09);mesh.add(snap);
+   }
+   scene.add(mesh,new T.HemisphereLight(0xffffff,0xad8c77,2));
    const light=new T.DirectionalLight(0xfff4e9,2);light.position.set(-2,3,4);scene.add(light);
    const draw=()=>renderer.render(scene,camera);
    const resize=new ResizeObserver(()=>{const w=el.clientWidth,h=el.clientHeight;if(!w||!h)return;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix();draw();});resize.observe(el);
@@ -48,7 +67,7 @@ export function BodyViewer({color,design}:{color:string;design:Design}){
     material.map?.dispose();material.map=texture;material.needsUpdate=true;draw();
    };
    paint.current=()=>{void redraw().catch(()=>setFailed(true));};
-   dispose=()=>{resize.disconnect();material.map?.dispose();geo.dispose();material.dispose();renderer.dispose();renderer.domElement.remove();};
+   dispose=()=>{resize.disconnect();material.map?.dispose();geo.dispose();material.dispose();cotton.dispose();collar.dispose();trimMaterial.dispose();snapShape.dispose();snapMaterial.dispose();renderer.dispose();renderer.domElement.remove();};
    paint.current();
   }
   void setup().catch(()=>{if(!stopped)setFailed(true);});

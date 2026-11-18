@@ -1,8 +1,9 @@
 'use client';
 import Link from 'next/link';
+import {ArrowUpRight} from 'lucide-react';
 import {useState} from 'react';
 import {useLibrary} from '@/lib/motif-library';
-import {BodyArt} from './body-art';
+import {GarmentPreview} from './garment-preview';
 import type {Offer} from '@/lib/offer-pricing';
 import {money} from '@/lib/constants';
 import {packPrice} from '@/lib/offer-pricing';
@@ -18,8 +19,8 @@ export function MotifGallery({search=''}:{search?:string}){
   <div className="offer-options" aria-label="Formule du body">{(['motif','motif-prenom'] as const).map(o=><button key={o} aria-pressed={o===offer} onClick={()=>setOffer(o)}><strong>{o==='motif'?'Motif':'Motif + Prénom'}</strong><span>{money(packPrice(o,1))}</span></button>)}</div>
   <div className="catalog-tools"><div className="collection-tabs">{['',...new Set(published.map(m=>m.collection))].map(c=><button key={c} aria-pressed={collection===c} onClick={()=>setCollection(c)}>{c||'Tous les motifs'}</button>)}</div><input type="search" aria-label="Rechercher un motif" placeholder="Rechercher un motif…" value={query} onChange={e=>setQuery(e.target.value)}/></div>
   <div className="store-products">{visible.map(m=><Link key={m.id} className="store-product" href={'/personnaliser/'+(offer==='motif'?'body-bebe-doux':'body-bebe-personnalise')+'?motif='+encodeURIComponent(m.id)}>
-    <div className="product-board"><BodyArt color="#f6f0e5"/><img src={m.src} alt="" loading="lazy"/></div>
-    <div><h3>{m.name}</h3><b>{money(packPrice(offer,1))}</b></div><small>Personnaliser ↗</small></Link>)}</div>
+    <div className="product-board"><GarmentPreview motif={m.src} placement={m}/><span className="card-zoom" aria-hidden="true"><img src={m.src} alt="" loading="lazy"/></span></div>
+    <div><h3>{m.name}</h3><b>{money(packPrice(offer,1))}</b></div><small>Personnaliser <ArrowUpRight className="inline-arrow" size={14} aria-hidden="true"/></small></Link>)}</div>
   {!visible.length&&<p role="status">Aucun motif trouvé pour cette recherche.</p>}
  </section>;
 }

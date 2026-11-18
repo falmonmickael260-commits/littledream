@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from './cart-provider';
-import { BodyArt } from './body-art';
+import {GarmentPreview} from './garment-preview';
 import {useLibrary} from '@/lib/motif-library';
 import { ILLUSTRATIONS } from '@/lib/illustrations';
 import { money } from '@/lib/constants';
@@ -31,7 +31,7 @@ function Editor({products,editKey,saved,selection}:{products:CatalogProduct[];ed
   function change(index:number,patch:Partial<PackPiece>) {
     setPieces(old=>old.map((piece,i)=>i===index?{...piece,...patch}:piece));
   }
-  return <main className="container"><div className="page-intro"><h1>Créer mon pack</h1><p>Composez chaque body en coton, pour un bébé ou toute une fratrie.</p></div><form onSubmit={event=>{
+  return <main className="container pack-workshop"><div className="page-intro pack-intro"><p className="collection-label">Les packs naissance</p><h1>Créer mon <em>pack.</em></h1><p>Composez chaque body en coton, pour un bébé ou toute une fratrie.</p></div><form onSubmit={event=>{
     event.preventDefault();
     const variant = variants.find(v=>v.color===pieces[0].color && v.size===pieces[0].size);
     if(product && variant){savePack(product.id,variant.id,{offer,pieces:pieces.map(p=>({...p,motifSrc:items.find(m=>m.id===p.motif)?.src??p.motifSrc,motifName:items.find(m=>m.id===p.motif)?.name??p.motifName,name:offer==='motif'?'':p.name.trim()}))},editKey);router.push('/panier');}
@@ -41,7 +41,7 @@ function Editor({products,editKey,saved,selection}:{products:CatalogProduct[];ed
   {pieces.map((piece,index)=>{
     const motif=items.find(m=>m.id===piece.motif)??{name:piece.motifName??'Illustration',src:piece.motifSrc??''};
     const variant=variants.find(v=>v.color===piece.color);
-    return <fieldset key={index} style={{marginBlock:24,padding:20,border:'1px solid var(--line)'}}><legend>Body {index+1}</legend><div className="split"><div style={{position:'relative',width:'100%',maxWidth:280,margin:'auto'}}><BodyArt color={variant?.color_hex}/><img src={motif.src} alt={motif.name} style={{position:'absolute',top:'30%',left:'34%',width:'32%'}}/><strong style={{position:'absolute',top:'59%',left:'15%',width:'70%',textAlign:'center'}}>{offer==='motif-prenom'&&piece.name}</strong></div><div>
+    return <fieldset key={index} style={{marginBlock:24,padding:20,border:'1px solid var(--line)'}}><legend>Body {index+1}</legend><div className="split"><GarmentPreview color={variant?.color_hex} motif={motif.src} name={offer==='motif-prenom'?piece.name:undefined}/><div>
     <label className="field">Illustration<select value={piece.motif} onChange={e=>change(index,{motif:e.target.value})}>{(!available.some(m=>m.id===piece.motif))&&<option value={piece.motif}>{motif.name} (sélection enregistrée)</option>}{available.map(m=><option key={m.id} value={m.id}>{m.name}</option>)}</select></label>
     <label className="field">Couleur<select value={piece.color} onChange={e=>change(index,{color:e.target.value})}>{[...new Set(variants.map(v=>v.color))].map(c=><option key={c}>{c}</option>)}</select></label>
     <label className="field">Taille<select value={piece.size} onChange={e=>change(index,{size:e.target.value})}>{variants.filter(v=>v.color===piece.color).map(v=><option key={v.id}>{v.size}</option>)}</select></label>

@@ -2,6 +2,7 @@ import {BrandLoader} from '@/components/brand-loader';
 import type { Metadata } from 'next';
 import './globals.css';
 import './storefront.css';
+import './maison.css';
 import { CartProvider } from '@/components/cart-provider';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
